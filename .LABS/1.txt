@@ -1,0 +1,86 @@
+main.cpp
+    #include <iostream>
+    #include "include/calculator.h"
+    #include "src/calculator.cpp"
+    using namespace std;
+
+    int main() {
+        int n;
+        cout << "Enter an integer: ";
+        cin >> n; 
+
+        cout << n << " -> " << calculator(n) << endl;
+        return 0;
+    }
+
+
+calculator.cpp
+    #include "../include/calculator.h"
+    using namespace std;
+
+    std::string calculator(int n) {
+        string x = "";
+        for (int i = 0; i < 32; ++i) {
+            if (n % 10 % 2 == 1) {
+                x = "1" + x; 
+            } else {
+                x = "0" + x;
+            }
+            n >>= 1; 
+        }
+        return x;
+    }
+
+
+calculator.h
+    #pragma once // говорит компилятору что данный файл должен быть включен только один раз
+
+    #include <string>
+
+    std::string calculator(int); 
+
+
+tests01.cpp
+    #include <gtest/gtest.h>
+    #include "../include/calculator.h"
+
+    TEST(test_01, basic_test_set)
+    {
+        int n = 1; 
+        std::string result = calculator(n);
+        ASSERT_TRUE(result=="00000000000000000000000000000001");
+    }
+
+    TEST(test_02, basic_test_set)
+    {
+        int n = 89999; 
+        std::string result = calculator(n);
+        ASSERT_TRUE(result=="00000000000000010101111110001111");
+    }
+
+    TEST(test_03, basic_test_set)
+    {
+        ASSERT_TRUE(calculator(22)=="00000000000000000000000000010110");
+    }
+
+    TEST(test_04, basic_test_set)
+    {
+        ASSERT_TRUE(calculator(89999)=="00000000000000010101111110001111");
+    }
+
+    TEST(test_05, basic_test_set)
+    {
+        ASSERT_TRUE(calculator(33)=="00000000000000000000000000100001");
+    }
+
+
+    TEST(test_06, basic_test_set)
+    {
+        ASSERT_TRUE(calculator(0)=="00000000000000000000000000000000");
+    }
+
+
+    int main(int argc, char **argv) {
+        testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    }
