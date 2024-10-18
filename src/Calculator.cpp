@@ -9,7 +9,7 @@ void validateInput(unsigned char digit)
     }
 }
 
-int TwelveToDecimal(unsigned char digit)
+int TwelveTo_10(unsigned char digit)
 {
     if (digit >= '0' && digit <= '9') {
         return digit - '0';
@@ -22,7 +22,7 @@ int TwelveToDecimal(unsigned char digit)
     }
 }
 
-unsigned char decimalToTwelve(int digit) {
+unsigned char ToTwelve(int digit) {
     if (digit >= 0 && digit <= 9) {
         return '0' + digit;
     } 
@@ -100,8 +100,8 @@ Twelve &Twelve::operator+=(const Twelve &other) {
 
     int carry = 0;
     for (size_t i = 0; i < maxSize; i++) {
-        int digit1 = (i < size_) ? TwelveToDecimal(data_[size_ - 1 - i]) : 0;
-        int digit2 = (i < other.size_) ? TwelveToDecimal(other.data_[other.size_ - 1 - i]) : 0;
+        int digit1 = (i < size_) ? TwelveTo_10(data_[size_ - 1 - i]) : 0;
+        int digit2 = (i < other.size_) ? TwelveTo_10(other.data_[other.size_ - 1 - i]) : 0;
 
         int sum = digit1 + digit2 + carry;
         carry = sum / 12;
@@ -133,8 +133,8 @@ Twelve &Twelve::operator-=(const Twelve &other) {
 
     int borrow = 0;
     for (size_t i = 0; i < size_; i++) {
-        int currentDigit = TwelveToDecimal(data_[size_ - 1 - i]) - borrow;
-        int otherDigit = (i < other.size_) ? TwelveToDecimal(other.data_[other.size_ - 1 - i]) : 0;
+        int currentDigit = TwelveTo_10(data_[size_ - 1 - i]) - borrow;
+        int otherDigit = (i < other.size_) ? TwelveTo_10(other.data_[other.size_ - 1 - i]) : 0;
 
         if (currentDigit < otherDigit) {
             currentDigit += 12;
@@ -172,8 +172,8 @@ bool Twelve::operator<(const Twelve &other) const {
     }
 
     for (size_t i = 0; i < size_; i++) {
-        int digit1 = TwelveToDecimal(data_[i]);
-        int digit2 = TwelveToDecimal(other.data_[i]);
+        int digit1 = TwelveTo_10(data_[i]);
+        int digit2 = TwelveTo_10(other.data_[i]);
 
         if (digit1 != digit2) {
             return digit1 < digit2;
@@ -189,8 +189,8 @@ bool Twelve::operator>(const Twelve &other) const {
     }
 
     for (size_t i = 0; i < size_; i++) {
-        int digit1 = TwelveToDecimal(data_[i]);
-        int digit2 = TwelveToDecimal(other.data_[i]);
+        int digit1 = TwelveTo_10(data_[i]);
+        int digit2 = TwelveTo_10(other.data_[i]);
 
         if (digit1 != digit2) {
             return digit1 > digit2;

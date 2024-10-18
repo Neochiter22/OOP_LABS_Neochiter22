@@ -3,7 +3,7 @@
 #include <stdexcept>
 
 void validateInput(unsigned char digit);
-int ToDecimal(unsigned char digit);
+int To_10(unsigned char digit);
 unsigned char decimalToTwelve(int digit);
 
 class Twelve {
